@@ -1,18 +1,34 @@
-# Analiza softverskog projekta: Calculator Java
+# Test slučajevi
 
-## 1. LOC metrike
-Ukupan broj linija koda (LOC) za sve .java fajlove: **235**
+| Ulazni izraz | Očekivani rezultat | Dobijeni rezultat | Status | Zapažanje |
+|--------------|--------------------|-------------------|--------|-----------|
+| 4+5 | 9 | 9 | PASS | Sabiranje funkcioniše ispravno |
+| 10+5*4 | 30 | 30 | PASS | Poštovan prioritet operacija |
+| 8-3 | 5 | 5 | PASS | Oduzimanje funkcioniše |
+| 6/2 | 3 | 3 | PASS | Deljenje funkcioniše |
+| 3*7 | 21 | 21 | PASS | Množenje funkcioniše |
+| 10/0 | Greška | Infinity | FAIL | Deljenje nulom nije pravilno obrađeno |
+| 5++2 | Greška | Neočekivan rezultat | FAIL | Program ne proverava ispravnost izraza |
+| *5+3 | Greška | Neočekivan rezultat | FAIL | Izraz ne bi smeo početi operatorom |
+| 5+ | Greška | Neočekivan rezultat | FAIL | Nepotpuni izraz nije obrađen |
+| 10+5*4+3 | 33 | 33 | PASS | Kompleksniji izraz radi ispravno |
 
-## 2. Statička analiza i neformalni pregled
+---
 
-| Fajl               | Broj linija | Zapažanje                                      |
-|-------------------|------------|-----------------------------------------------|
-| Calculator.java    | 188|        Prikazuje jednu syntax gresku |
-| Licenc             | 21 |         
-| Start.java         | 26 |       Prikazuje 2 greske (npr. neujednačeno imenovanje promenljivih) |
+# Uočeni nedostaci
 
+Tokom testiranja primećeni su sledeći problemi:
 
-## 3. Zaključci
-- Veći deo grešaka i problema u kodu može se rešiti refaktoringom i doslednim imenovanjem.  
-- Neki delovi koda su predugački i teže se testiraju, preporučuje se razbijanje metoda.  
-- Staticka analiza pokazuje mesta potencijalnih Code Smell-ova, što može pomoći u unapređenju održivosti i testabilnosti koda.
+1. Kalkulator ne proverava da li je uneti izraz ispravan.
+2. Deljenje nulom ne vraća grešku već vrednost "Infinity".
+3. Program dozvoljava izraze koji počinju operatorom.
+4. Nepotpuni izrazi nisu pravilno obrađeni.
+
+---
+
+# Zaključak
+
+Na osnovu sprovedenog testiranja može se zaključiti da kalkulator pravilno izvršava osnovne aritmetičke operacije kada je unos ispravan.  
+Međutim, program nema implementiranu proveru validnosti unosa, zbog čega dolazi do neočekivanog ponašanja u određenim slučajevima.
+
+Za unapređenje aplikacije preporučuje se dodavanje validacije unosa i obrade grešaka pre samog računanja izraza.
